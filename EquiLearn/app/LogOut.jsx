@@ -113,6 +113,8 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     marginTop: 25,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   form: {
     marginTop: 20,

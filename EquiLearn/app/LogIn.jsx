@@ -35,7 +35,7 @@ const LogIn = () => {
           <HeaderForm />
           <View style={styles.ctaText}>
             <OwnText primary bold big>
-              Estudia. Aprende. 
+              Estudia. Aprende.
             </OwnText>
             <OwnText big addStyle={{ flexDirection: 'row' }}>
               Iniciar Sesión en{' '}
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     marginTop: 25,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   form: {
     marginTop: 20,
