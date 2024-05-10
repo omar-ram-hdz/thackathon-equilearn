@@ -3,7 +3,10 @@ import OwnText from './OwnText';
 import { Theme } from '../constants/Theme';
 const OwnButton = ({ children, addStyle, onP }) => {
   return (
-    <TouchableOpacity onPress={onP} style={{ ...styles.button, ...addStyle }}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{ ...styles.button, ...addStyle }}
+    >
       <OwnText dark big>
         {children}
       </OwnText>

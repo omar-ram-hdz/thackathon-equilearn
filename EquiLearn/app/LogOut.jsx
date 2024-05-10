@@ -83,7 +83,7 @@ const LogOut = () => {
 
             <View style={{ marginTop: 50 }}>
               <OwnButton
-                onP={() =>
+                onPress={() =>
                   Alert.alert('Mensaje de EquiLearn', 'Hola! esto ya funciona')
                 }
               >
