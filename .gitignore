@@ -1,0 +1,37 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+EquiLearn/node_modules
+backend/node_modules
+
+# Expo
+EquiLearn/.expo/
+EquiLearn/dist/
+EquiLearn/web-build/
+
+# Native
+EquiLearn/*.orig.*
+EquiLearn/*.jks
+EquiLearn/*.p8
+EquiLearn/*.p12
+EquiLearn/*.key
+EquiLearn/*.mobileprovision
+
+# Metro
+EquiLearn/.metro-health-check*
+
+# debug
+EquiLearn/npm-debug.*
+EquiLearn/yarn-debug.*
+EquiLearn/yarn-error.*
+
+# macOS
+EquiLearn/.DS_Store
+EquiLearn/*.pem
+
+# local env files
+EquiLearn/.env*.local
+
+# typescript
+EquiLearn/*.tsbuildinfo
