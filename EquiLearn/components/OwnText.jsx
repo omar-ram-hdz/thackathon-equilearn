@@ -10,6 +10,7 @@ const OwnText = ({
   primary,
   medium,
   addStyle,
+  center,
   ...addProps
 }) => {
   const styleText = {};
@@ -28,6 +29,7 @@ const OwnText = ({
     : italic
       ? Theme.fonts.italic
       : Theme.fonts.normal;
+  styleText['textAlign'] = center && 'center';
   return (
     <Text style={{ ...addStyle, ...styleText }} {...addProps}>
       {children}
