@@ -6,7 +6,7 @@ const BigIcon = ({ addStyle, ...otherParams }) => {
       style={addStyle}
       source={require('../assets/icon-big.svg')}
       contentFit="cover"
-      transition={100}
+      transition={0}
       {...otherParams}
     />
   );
