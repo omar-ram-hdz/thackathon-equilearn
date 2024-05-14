@@ -1,7 +1,7 @@
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import OwnText from './OwnText';
 import { Theme } from '../constants/Theme';
-const OwnButton = ({ children, addStyle, onP }) => {
+const OwnButton = ({ children, addStyle, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}

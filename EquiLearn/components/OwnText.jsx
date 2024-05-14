@@ -8,6 +8,8 @@ const OwnText = ({
   italic,
   dark,
   primary,
+  gray,
+  tertiary,
   medium,
   addStyle,
   center,
@@ -18,7 +20,11 @@ const OwnText = ({
     ? Theme.colors.bluePrimary
     : dark
       ? '#ffffff'
-      : '#000000';
+      : gray
+        ? Theme.colors.gray
+        : tertiary
+          ? Theme.colors.blueTertiary
+          : '#000000';
   styleText['fontSize'] = big
     ? Theme.sizes.text.big
     : medium
