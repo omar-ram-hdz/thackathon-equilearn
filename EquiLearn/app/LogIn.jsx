@@ -67,11 +67,7 @@ const LogIn = () => {
               />
             </View>
             <View style={{ marginTop: 50 }}>
-              <OwnButton
-                onP={() =>
-                  Alert.alert('Mensaje de EquiLearn', 'Hola! esto ya funciona')
-                }
-              >
+              <OwnButton onPress={() => router.navigate('Home')}>
                 Iniciar Sesión
               </OwnButton>
             </View>
