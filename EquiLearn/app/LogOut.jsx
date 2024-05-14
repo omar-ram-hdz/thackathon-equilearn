@@ -82,11 +82,7 @@ const LogOut = () => {
             </View>
 
             <View style={{ marginTop: 50 }}>
-              <OwnButton
-                onPress={() =>
-                  Alert.alert('Mensaje de EquiLearn', 'Hola! esto ya funciona')
-                }
-              >
+              <OwnButton onPress={() => router.navigate('Home')}>
                 Registrarse
               </OwnButton>
             </View>
