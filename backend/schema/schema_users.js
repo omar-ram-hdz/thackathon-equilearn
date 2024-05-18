@@ -28,3 +28,11 @@ const userSchema = z.object({
     })
     .regex(REGEX.USER.PASS, { message: PASS.INVALID }),
 });
+
+export const validateUser = (input) => {
+  return userSchema.safeParse(input);
+};
+
+export const validatePartialUser = (input) => {
+  return userSchema.partial().safeParse(input);
+};
