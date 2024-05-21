@@ -49,7 +49,7 @@ const Index = () => {
         backgroundColor={Theme.colors.black}
         barStyle="light-content "
       />
-      <BigIcon addStyle={styles.icon} />
+      <BigIcon style={styles.icon} />
       {isLoading && (
         <View>
           <OwnText bold big primary>

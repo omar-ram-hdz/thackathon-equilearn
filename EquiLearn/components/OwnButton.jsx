@@ -1,12 +1,9 @@
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import OwnText from './OwnText';
 import { Theme } from '../constants/Theme';
-const OwnButton = ({ children, addStyle, onPress }) => {
+const OwnButton = ({ children, style, onPress }) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{ ...styles.button, ...addStyle }}
-    >
+    <TouchableOpacity onPress={onPress} style={{ ...styles.button, ...style }}>
       <OwnText dark big>
         {children}
       </OwnText>

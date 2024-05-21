@@ -38,7 +38,7 @@ const LogOut = () => {
             <OwnText primary bold big>
               Estudia. Aprende.
             </OwnText>
-            <OwnText big addStyle={{ flexDirection: 'row' }}>
+            <OwnText big style={{ flexDirection: 'row' }}>
               Registrarse en{' '}
               <OwnText bold big>
                 EquiLearn

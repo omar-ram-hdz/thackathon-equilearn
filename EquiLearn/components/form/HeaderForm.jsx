@@ -2,9 +2,9 @@ import { View, StyleSheet } from 'react-native';
 import OwnText from '../OwnText.jsx';
 import BigIcon from '../BigIcon.jsx';
 
-const HeaderForm = ({ addStyles }) => {
+const HeaderForm = ({ style }) => {
   return (
-    <View style={{ ...styles.container, ...addStyles }}>
+    <View style={{ ...styles.container, ...style }}>
       <BigIcon
         style={{ width: 40, height: 40, objectFit: 'scale-down' }}
         alt="EquiLearn Icon"
