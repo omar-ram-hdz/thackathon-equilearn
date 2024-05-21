@@ -5,7 +5,7 @@ USE equilearn;
 CREATE TABLE users(
   id BINARY(16) PRIMARY KEY,
   full_name VARCHAR(60) NOT NULL,
-  email VARCHAR(60) NOT NULL,
+  email VARCHAR(60) UNIQUE NOT NULL,
   pass BLOB NOT NULL
 )CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
