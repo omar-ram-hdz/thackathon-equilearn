@@ -8,6 +8,9 @@ export const Theme = {
     greenLow: '#53BA83',
     blackIntense: '#010101',
     gray: '#777777',
+    red: '#AA261E',
+    blue: '#4FA5EA',
+    orange: '#E08D36',
   },
   sizes: {
     text: {
@@ -19,6 +22,10 @@ export const Theme = {
       primary: 20,
       medium: 10,
       exaggerated: 50,
+    },
+    images: {
+      homeWidthImages: 200,
+      homeHeightImages: 130,
     },
   },
   fonts: {
