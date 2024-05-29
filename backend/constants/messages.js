@@ -13,7 +13,14 @@ export const FIELDS = Object.freeze({
   NAME: 'Full name',
   MAIL: 'Email',
   PASS: 'Password',
+  UUID: 'UUID',
 });
+
+export const USER_MODEL = {
+  FOUND: 'User not found',
+  GETTING: 'Error getting user',
+  CREATING: 'Error creating user',
+};
 
 export const getMessagesType = (type, field) => {
   return {
