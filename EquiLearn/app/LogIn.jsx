@@ -77,7 +77,7 @@ const LogIn = () => {
       <View style={{ marginTop: 100 }}>
         <OwnText medium center>
           ¿No tienes cuenta?{' '}
-          <TouchableWithoutFeedback onPress={() => router.back()}>
+          <TouchableWithoutFeedback onPress={() => router.navigate('LogOut')}>
             <OwnText medium primary bold>
               Registrarse
             </OwnText>

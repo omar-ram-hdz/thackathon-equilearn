@@ -30,7 +30,7 @@ const Index = () => {
           setTimeout(() => {
             setIsLoading(false);
             setUserId(res);
-            router.navigate('/LogOut');
+            router.navigate('/CallToAction');
           }, 2000);
         } else {
           // Index entry

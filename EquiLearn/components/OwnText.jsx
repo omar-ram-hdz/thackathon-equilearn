@@ -37,7 +37,7 @@ const OwnText = ({
       : Theme.fonts.normal;
   styleText['textAlign'] = center && 'center';
   return (
-    <Text style={{ ...style, ...styleText }} {...addProps}>
+    <Text style={{ ...styleText, ...style }} {...addProps}>
       {children}
     </Text>
   );

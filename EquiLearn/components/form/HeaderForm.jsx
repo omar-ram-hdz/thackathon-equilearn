@@ -6,7 +6,13 @@ const HeaderForm = ({ style }) => {
   return (
     <View style={{ ...styles.container, ...style }}>
       <BigIcon
-        style={{ width: 40, height: 40, objectFit: 'scale-down' }}
+        style={{
+          width: 40,
+          height: 40,
+          objectFit: 'scale-down',
+          borderRadius: 10,
+          marginRight: 5,
+        }}
         alt="EquiLearn Icon"
       />
       <OwnText primary bold big>

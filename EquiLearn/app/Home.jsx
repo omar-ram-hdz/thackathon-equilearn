@@ -10,6 +10,7 @@ import { Image } from 'expo-image';
 import { Theme } from '../constants/Theme';
 import OwnText from '../components/OwnText';
 import { useFonts } from 'expo-font';
+import { router } from 'expo-router';
 
 const Home = () => {
   const [fontsLoaded] = useFonts({
@@ -45,6 +46,11 @@ const Home = () => {
       name: 'Orgánica',
     },
   ];
+
+  const courseHandlePress = () => {
+    router.navigate('Course');
+  };
+
   const Item = ({ type, name }) => {
     return (
       <TouchableOpacity
@@ -53,6 +59,7 @@ const Home = () => {
           backgroundColor: COLORS[type],
           borderColor: COLORS[type],
         }}
+        onPress={courseHandlePress}
       >
         <View>
           <Image
@@ -135,3 +142,6 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+/* 
+    DG => CECyTE 
+*/
