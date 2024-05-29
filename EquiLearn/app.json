@@ -5,11 +5,11 @@
     "schema": "EquiLearn",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon-big.svg",
+    "icon": "./assets/icongral.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/icon-big.svg",
-      "resizeMode": "contain",
+      "image": "./assets/icongral.png",
+      "resizeMode": "scale-down",
       "backgroundColor": "#333333"
     },
     "ios": {
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon-big.svg",
+        "foregroundImage": "./assets/icongral.png",
         "backgroundColor": "#333333"
       }
     },
