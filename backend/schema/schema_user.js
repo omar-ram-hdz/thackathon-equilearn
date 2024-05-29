@@ -1,6 +1,6 @@
 import z from 'zod';
-import { REGEX } from '../helpers/regular_expressions';
-import { getMessagesType, TYPES, FIELDS } from '../constants/MESSAGES';
+import { REGEX } from '../helpers/regular_expressions.js';
+import { getMessagesType, TYPES, FIELDS } from '../constants/messages.js';
 
 const NAME = getMessagesType(TYPES.STRING, FIELDS.NAME);
 const EMAIL = getMessagesType(TYPES.STRING, FIELDS.MAIL);
