@@ -18,6 +18,7 @@
     "express": "^4.19.2",
     "jwt-simple": "^0.5.6",
     "mysql2": "^3.9.7",
+    "mongodb": "^6.7.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
