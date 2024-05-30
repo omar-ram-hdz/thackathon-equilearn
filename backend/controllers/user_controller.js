@@ -2,6 +2,8 @@ import { validateUser, validatePartialUser } from '../schema/schema_user.js';
 import { getMessagesType, TYPES, FIELDS } from '../constants/messages.js';
 import z from 'zod';
 
+const uuid = z.string().uuid();
+
 export class UserController {
   constructor(userModel) {
     this.userModel = userModel;
@@ -13,7 +15,7 @@ export class UserController {
       return res.status(400).json({ error: JSON.parse(result.error.message) });
     const newUser = await this.userModel.create(result.data);
 
-    return res.status(201).json({ data: newUser });
+    return res.status(201).json({ id: newUser });
   };
 
   get = async (req, res) => {
@@ -23,13 +25,15 @@ export class UserController {
       return res.status(400).json({ error: JSON.parse(result.error.message) });
     const user = await this.userModel.get(result.data);
     console.log(user);
+    return res.status(201).json({ user });
   };
 
   getById = async (req, res) => {
     const { id } = req.params;
-    if (!z.string().uuid().parse(id))
+    if (!uuid.parse(id))
       return res.status(400).json({ error: this.RESPONSES_UUID.INVALID });
     const user = await this.userModel.getById(id);
     console.log(user);
+    return res.status(201).json({ user });
   };
 }
