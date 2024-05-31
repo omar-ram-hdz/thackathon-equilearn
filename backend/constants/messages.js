@@ -22,6 +22,12 @@ export const USER_MODEL = {
   CREATING: 'Error creating user',
 };
 
+export const COURSE_MODEL = {
+  FOUND: 'Course not found',
+  GETTING: 'Error getting course',
+  CREATING: 'Error creating course',
+};
+
 export const getMessagesType = (type, field) => {
   return {
     REQUIRED: `${field} is required`,
