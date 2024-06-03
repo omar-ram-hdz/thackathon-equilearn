@@ -2,27 +2,27 @@
   "expo": {
     "name": "EquiLearn",
     "slug": "EquiLearn",
-    "schema": "EquiLearn",
+    "schema": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icongral.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/icongral.png",
-      "resizeMode": "scale-down",
-      "backgroundColor": "#333333"
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#222222"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icongral.png",
-        "backgroundColor": "#333333"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#222222"
       }
     },
     "web": {
-      "favicon": "./assets/icon-big.svg"
+      "favicon": "./assets/icon.png"
     },
     "plugins": ["expo-router", "expo-secure-store", "expo-font"]
   }
