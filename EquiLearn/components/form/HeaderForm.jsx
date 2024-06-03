@@ -7,8 +7,8 @@ const HeaderForm = ({ style }) => {
     <View style={{ ...styles.container, ...style }}>
       <BigIcon
         style={{
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
           objectFit: 'scale-down',
           borderRadius: 10,
           marginRight: 5,

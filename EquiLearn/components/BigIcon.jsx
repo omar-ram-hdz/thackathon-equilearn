@@ -4,7 +4,7 @@ const BigIcon = ({ style, ...otherParams }) => {
   return (
     <Image
       style={style}
-      source={require('../assets/icon-big.svg')}
+      source={require('../assets/favicon.svg')}
       contentFit="scale-down"
       transition={0}
       {...otherParams}
