@@ -25,6 +25,10 @@ export class UserController {
       return res.status(400).json({ error: JSON.parse(result.error.message) });
     const user = await this.userModel.get(result.data);
     console.log(user);
+    if (user.name === 'DatabaseError') {
+      let message = user.name;
+      return res.json({ message, user: false });
+    }
     return res.status(201).json({ user });
   };
 
@@ -34,6 +38,10 @@ export class UserController {
       return res.status(400).json({ error: this.RESPONSES_UUID.INVALID });
     const user = await this.userModel.getById(id);
     console.log(user);
+    if (user.name === 'DatabaseError') {
+      let message = user.name;
+      return res.json({ message, user: false });
+    }
     return res.status(201).json({ user });
   };
 }
