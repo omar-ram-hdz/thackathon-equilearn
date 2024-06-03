@@ -10,12 +10,11 @@ import * as ss from 'expo-secure-store';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Theme } from '../constants/Theme';
-import BigIcon from '../components/BigIcon.jsx';
+import { Image } from 'expo-image';
 import OwnText from '../components/OwnText';
 import { useFonts } from 'expo-font';
 
 const Index = () => {
-  const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [fontsLoaded] = useFonts({
@@ -26,21 +25,20 @@ const Index = () => {
   useEffect(() => {
     ss.getItemAsync('userId')
       .then((res) => {
-        if (res === null) {
+        if (res) {
           setTimeout(() => {
             setIsLoading(false);
-            setUserId(res);
-            router.navigate('/CallToAction');
-          }, 2000);
+            router.navigate('Home');
+          }, 3000);
         } else {
-          // Index entry
+          setTimeout(() => {
+            setIsLoading(false);
+            router.navigate('CallToAction');
+          }, 3000);
         }
       })
       .catch((e) => {
         setError(e);
-      })
-      .finally(() => {
-        /*setIsLoading(false)*/
       });
   }, []);
   return (
@@ -49,13 +47,20 @@ const Index = () => {
         backgroundColor={Theme.colors.black}
         barStyle="light-content "
       />
-      <BigIcon style={styles.icon} />
       {isLoading && (
-        <View>
+        <View style={styles.container}>
+          <Image
+            source={require('../assets/loading.gif')}
+            rate={1.5}
+            autoplay
+            isLooping
+            contentFit="scale-down"
+            alt="EquiLearn Icon"
+            style={styles.icon}
+          />
           <OwnText bold big primary>
             Cargando...
           </OwnText>
-          <ActivityIndicator size="large" color={Theme.colors.bluePrimary} />
         </View>
       )}
       {error && <Text style={{ color: 'f14' }}>Error</Text>}
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
   icon: {
     borderRadius: 10,
     width: 400,
-    height: 100,
+    height: 130,
   },
 });
 
