@@ -116,19 +116,27 @@ const CallToAction = () => {
         backgroundColor={Theme.colors.black}
         barStyle="light-content"
       />
-
       <Modal
         animationType="slide"
-        transparent={true}
+        transparent
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <OwnText medium dark primary>
-              Lo sentimos {':('} debes iniciar sesión primero
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContainerStyle}>
+            <Image
+              source={require('../assets/loading.gif')}
+              rate={1.5}
+              autoplay
+              isLooping
+              contentFit="scale-down"
+              alt="EquiLearn Icon"
+              style={styles.iconLoading}
+            />
+            <OwnText bold big primary>
+              Inicia Sesión primero
             </OwnText>
             <OwnButton
               style={{ marginTop: 10 }}
@@ -139,7 +147,6 @@ const CallToAction = () => {
           </View>
         </View>
       </Modal>
-
       <ScrollView>
         <OwnText big bold dark style={{ marginTop: 20 }}>
           Cursos:
@@ -212,20 +219,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: Theme.colors.blackIntense,
-    borderRadius: 20,
-    padding: 35,
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  modalContainerStyle: {
     alignItems: 'center',
-    shadowColor: '#000',
+    backgroundColor: Theme.colors.black,
+    shadowColor: 'white',
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 50,
+      height: 50,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.5,
+    shadowRadius: Theme.sizes.radius.primary,
     elevation: 5,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    padding: 15,
+    borderRadius: Theme.sizes.radius.primary,
+  },
+  iconLoading: {
+    borderRadius: 10,
+    width: 400,
+    height: 130,
   },
 });
 
