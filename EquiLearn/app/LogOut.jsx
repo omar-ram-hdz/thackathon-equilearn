@@ -12,9 +12,11 @@ import {
   Modal,
 } from 'react-native';
 import { Image } from 'expo-image';
+import Checkbox from 'expo-checkbox';
 import HeaderForm from '../components/form/HeaderForm.jsx';
 import OwnText from '../components/OwnText.jsx';
 import OwnButton from '../components/OwnButton.jsx';
+import { Picker } from '@react-native-picker/picker';
 import { Theme } from '../constants/Theme.js';
 import { RequestConfig } from '../constants/fetch.js';
 import { REGEX, MESSAGES } from '../constants/regular_expressions.js';
@@ -36,6 +38,8 @@ const LogOut = () => {
   const [isPending, setIsPending] = useState(false);
   const [data, setData] = useState({ user: {} });
   const [dataError, setDataError] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
   let controller = new AbortController();
   const url = `http://${RequestConfig.host}:${RequestConfig.port}/api`;
   useEffect(() => {
@@ -111,30 +115,47 @@ const LogOut = () => {
       }
     }
   }, [data, dataError]);
+  useEffect(() => {
+    if (selectedLanguage) {
+      console.log(selectedLanguage);
+    }
+  }, [selectedLanguage]);
   const handleSubmit = () => {
-    if (!mailError && !nameError && !passError) {
-      setIsPending(true);
-      ua.post(`${url}/user`, pass, mail, name, controller.signal)
-        .then((res) => {
-          if (!res.id) throw res;
-          setDataError(null);
-          setData(res);
-        })
-        .catch((err) => {
-          /* setTimeout(() => {
+    if (isChecked) {
+      if (!mailError && !nameError && !passError && selectedLanguage) {
+        setIsPending(true);
+        ua.post(
+          `${url}/user`,
+          pass,
+          mail,
+          name,
+          selectedLanguage,
+          controller.signal,
+        )
+          .then((res) => {
+            if (!res.id) throw res;
+            setDataError(null);
+            setData(res);
+          })
+          .catch((err) => {
             setDataError(err);
-          }, 6100); */
-          setDataError(err);
-        });
-      setTimeout(() => {
-        controller.abort();
-        controller = new AbortController();
-        setIsPending(false);
-      }, 6000);
+          });
+        setTimeout(() => {
+          controller.abort();
+          controller = new AbortController();
+          setIsPending(false);
+        }, 6000);
+      } else {
+        Alert.alert('Error', 'Primero rellena todos los campos correctamente', [
+          { text: 'OK', style: 'cancel' },
+        ]);
+      }
     } else {
-      Alert.alert('Error', 'Primero rellena todos los campos correctamente', [
-        { text: 'OK', style: 'cancel' },
-      ]);
+      Alert.alert(
+        'Advertencia',
+        'No podemos permitir tu registro si no aceptas las políticas de privacidad',
+        [{ text: 'OK', style: 'cancel' }],
+      );
     }
   };
   const [fontsLoaded] = useFonts({
@@ -212,13 +233,57 @@ const LogOut = () => {
                 </OwnText>
               )}
             </View>
-            <View style={{ marginTop: 50 }}>
+            <View style={styles.pickerStyle}>
+              <Picker
+                selectedValue={selectedLanguage}
+                onValueChange={(itemValue, itemIndex) => {
+                  setSelectedLanguage(itemValue);
+                }}
+                itemStyle={{
+                  color: Theme.colors.black,
+                  fontFamily: 'Ubuntu-Regular',
+                }}
+                selectionColor={Theme.colors.bluePrimary}
+              >
+                <Picker.Item label="Semestre 1" value={1} />
+                <Picker.Item label="Semestre 2" value={2} />
+                <Picker.Item label="Semestre 3" value={3} />
+                <Picker.Item label="Semestre 4" value={4} />
+                <Picker.Item label="Semestre 5" value={5} />
+                <Picker.Item label="Semestre 6" value={6} />
+              </Picker>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+                alignItems: 'center',
+              }}
+            >
+              <Checkbox
+                style={{ margin: 4 }}
+                value={isChecked}
+                onValueChange={setIsChecked}
+                color={Theme.colors.bluePrimary}
+              />
+              <OwnText center>
+                He leído y acepto la{' '}
+                <TouchableWithoutFeedback
+                  onPress={() => router.navigate('privacyTerms/LogOut')}
+                >
+                  <OwnText primary bold>
+                    política de privacidad
+                  </OwnText>
+                </TouchableWithoutFeedback>
+              </OwnText>
+            </View>
+            <View style={{ marginTop: 20 }}>
               <OwnButton onPress={handleSubmit}>Registrarse</OwnButton>
             </View>
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginTop: 5 }}>
         <OwnText medium center>
           ¿Ya tienes cuenta?{' '}
           <TouchableWithoutFeedback onPress={() => router.navigate('LogIn')}>
@@ -296,6 +361,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 400,
     height: 130,
+  },
+  pickerStyle: {
+    borderWidth: 1,
+    borderColor: Theme.colors.black,
+    marginVertical: 5,
+    borderRadius: Theme.sizes.radius.medium,
   },
 });
 export default LogOut;

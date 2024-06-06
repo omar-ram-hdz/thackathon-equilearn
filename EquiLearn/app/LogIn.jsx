@@ -10,6 +10,7 @@ import {
   Platform,
   Modal,
   Alert,
+  BackHandler,
 } from 'react-native';
 import { Image } from 'expo-image';
 import HeaderForm from '../components/form/HeaderForm.jsx';
@@ -120,6 +121,26 @@ const LogIn = () => {
       ]);
     }
   };
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('¡Queeeee!', '¿Estas seguro de salir de EquiLearn?', [
+        {
+          text: 'NO',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'Si', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const [fontsLoaded] = useFonts({
     'Ubuntu-Bold': require('../assets/fonts/Ubuntu-Bold.ttf'),
     'Ubuntu-Italic': require('../assets/fonts/Ubuntu-Italic.ttf'),

@@ -1,10 +1,11 @@
 import {
-  ActivityIndicator,
   View,
   Text,
   StyleSheet,
   SafeAreaView,
   StatusBar,
+  BackHandler,
+  Alert,
 } from 'react-native';
 import * as ss from 'expo-secure-store';
 import { router } from 'expo-router';
@@ -13,6 +14,7 @@ import { Theme } from '../constants/Theme';
 import { Image } from 'expo-image';
 import OwnText from '../components/OwnText';
 import { useFonts } from 'expo-font';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,24 +24,39 @@ const Index = () => {
     'Ubuntu-Italic': require('../assets/fonts/Ubuntu-Italic.ttf'),
     'Ubuntu-Regular': require('../assets/fonts/Ubuntu-Regular.ttf'),
   });
+  const { isConnected } = useNetInfo();
   useEffect(() => {
-    ss.getItemAsync('userId')
-      .then((res) => {
-        if (res) {
-          setTimeout(() => {
-            setIsLoading(false);
-            router.navigate('Home');
-          }, 3000);
-        } else {
-          setTimeout(() => {
-            setIsLoading(false);
-            router.navigate('CallToAction');
-          }, 3000);
-        }
-      })
-      .catch((e) => {
-        setError(e);
-      });
+    if (isConnected) {
+      ss.getItemAsync('userId')
+        .then((res) => {
+          if (res) {
+            setTimeout(() => {
+              setIsLoading(false);
+              router.navigate('Home');
+            }, 3000);
+          } else {
+            setTimeout(() => {
+              setIsLoading(false);
+              router.navigate('CallToAction');
+            }, 3000);
+          }
+        })
+        .catch((e) => {
+          setError(e);
+        });
+    } else {
+      Alert.alert(
+        'Ups',
+        'Parece que no tienes conexión. Conéctate a internet primero.',
+        [{ text: 'OK', style: 'cancel', onPress: () => BackHandler.exitApp() }],
+      );
+    }
+  }, [isConnected]);
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () =>
+      BackHandler.exitApp(),
+    );
+    return () => backHandler.remove();
   }, []);
   return (
     <SafeAreaView style={styles.container}>
