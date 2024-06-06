@@ -2,247 +2,142 @@ import {
   View,
   StyleSheet,
   StatusBar,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  FlatList,
+  BackHandler,
+  Alert,
   ScrollView,
-  Modal,
 } from 'react-native';
-import HeaderForm from '../components/form/HeaderForm';
+import { useEffect } from 'react';
 import { Image } from 'expo-image';
 import { Theme } from '../constants/Theme';
 import OwnText from '../components/OwnText';
 import OwnButton from '../components/OwnButton';
 import { useFonts } from 'expo-font';
-import { useState } from 'react';
 import { router } from 'expo-router';
 
 const CallToAction = () => {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('¡Queeeee!', '¿Estas seguro de salir de EquiLearn?', [
+        {
+          text: 'NO',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'Si', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const [fontsLoaded] = useFonts({
     'Ubuntu-Bold': require('../assets/fonts/Ubuntu-Bold.ttf'),
     'Ubuntu-Italic': require('../assets/fonts/Ubuntu-Italic.ttf'),
     'Ubuntu-Regular': require('../assets/fonts/Ubuntu-Regular.ttf'),
   });
-  const [modalVisible, setModalVisible] = useState(false);
-  const IMAGES = {
-    mat: require('../assets/matematicas.svg'),
-    fis: require('../assets/fisica.svg'),
-  };
-  const COLORS = {
-    mat: Theme.colors.red,
-    fis: Theme.colors.green,
-    qui: Theme.colors.blue,
-    lan: Theme.colors.orange,
-  };
-  const DATA = [
-    {
-      type: 'mat',
-      name: 'Algebra',
-    },
-    {
-      type: 'fis',
-      name: 'Óptica',
-    },
-    {
-      type: 'fis',
-      name: 'Electromagnetismo',
-    },
-    {
-      type: 'qui',
-      name: 'Orgánica',
-    },
-    {
-      type: 'fis',
-      name: 'Óptica',
-    },
-    {
-      type: 'fis',
-      name: 'Electromagnetismo',
-    },
-    {
-      type: 'qui',
-      name: 'Orgánica',
-    },
-    {
-      type: 'fis',
-      name: 'Óptica',
-    },
-    {
-      type: 'fis',
-      name: 'Electromagnetismo',
-    },
-    {
-      type: 'qui',
-      name: 'Orgánica',
-    },
-  ];
-  const Item = ({ type, name }) => {
-    return (
-      <TouchableOpacity
-        style={{
-          ...styles.listContainer,
-          backgroundColor: COLORS[type],
-        }}
-        onPress={courseHandleClick}
-      >
-        <View>
-          <Image
-            contentFit="cover"
-            source={IMAGES[type]}
-            style={styles.imageSubject}
-          />
-          <OwnText
-            dark
-            style={{
-              backgroundColor: Theme.colors.black,
-              padding: 5,
-              width: '100%',
-              marginBottom: 3,
-            }}
-          >
-            {name}
-          </OwnText>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
-  const courseHandleClick = () => setModalVisible(true);
-
   return (
     <View style={styles.container}>
-      <HeaderForm />
-      <StatusBar
-        backgroundColor={Theme.colors.black}
-        barStyle="light-content"
-      />
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '8%',
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 6,
+          },
+          shadowOpacity: 0.39,
+          shadowRadius: 8.3,
+          elevation: 13,
         }}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContainerStyle}>
-            <Image
-              source={require('../assets/loading.gif')}
-              rate={1.5}
-              autoplay
-              isLooping
-              contentFit="scale-down"
-              alt="EquiLearn Icon"
-              style={styles.iconLoading}
-            />
-            <OwnText bold big primary>
-              Inicia Sesión primero
-            </OwnText>
-            <OwnButton
-              style={{ marginTop: 10 }}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              Entendido
-            </OwnButton>
-          </View>
-        </View>
-      </Modal>
-      <ScrollView>
-        <OwnText big bold dark style={{ marginTop: 20 }}>
-          Cursos:
-        </OwnText>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => <Item type={item.type} name={item.name} />}
-          numColumns={2}
-          keyExtractor={(item, i) => i}
+        <Image
+          source={require('../assets/favicon.svg')}
+          contentFit="scale-down"
+          style={styles.icon}
         />
-        <View style={styles.space}></View>
-      </ScrollView>
-      <View style={styles.fixedFooter}>
-        <OwnButton onPress={() => router.navigate('LogIn')}>
+        <OwnText primary bold big>
+          EquiLearn
+        </OwnText>
+      </View>
+
+      <ScrollView>
+        <Image
+          source={require('../assets/cta_1.png')}
+          contentFit="scale-down"
+          style={styles.images}
+          alt="Tree people"
+        />
+        <OwnText bold big center>
+          ¿List@ para empezar a aprender?
+        </OwnText>
+        <OwnText medium center>
+          Inicia sesión o regístrate para acceder todos los cursos de EquiLearn.
+        </OwnText>
+        <OwnButton
+          style={{ width: '70%', marginHorizontal: 'auto', marginVertical: 5 }}
+          onPress={() => router.navigate('LogIn')}
+        >
           Iniciar Sesión
         </OwnButton>
-        <OwnButton
-          style={{
-            backgroundColor: Theme.colors.black,
-            borderWidth: 2,
-            borderColor: Theme.colors.bluePrimary,
-          }}
-          onPress={() => router.navigate('/LogOut')}
-          textPrimary
-        >
-          Registrarse
-        </OwnButton>
-      </View>
+        <View style={styles.space}></View>
+        <Image
+          source={require('../assets/cta_2.png')}
+          contentFit="scale-down"
+          style={styles.images}
+          alt="Tree people"
+        />
+        <OwnText bold big center>
+          Tu puedes mejorar en cualquier materia
+        </OwnText>
+        <OwnText medium center>
+          EquiLearn esta pensado para ayudar tanto alumnos regulares como
+          irregulares.
+        </OwnText>
+        <View style={styles.space}></View>
+        <Image
+          source={require('../assets/cta_3.png')}
+          contentFit="scale-down"
+          style={styles.images}
+          alt="Tree people"
+        />
+        <OwnText bold big center>
+          ¿Se te hace difícil tu carrera técnica?
+        </OwnText>
+        <OwnText medium center>
+          EquiLearn puede ser tu gran aliado en las materias de tu especialidad.
+        </OwnText>
+        <View style={styles.space}></View>
+        <View style={styles.space}></View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Theme.colors.black,
+    backgroundColor: 'white',
     flex: 1,
-    paddingHorizontal: 30,
   },
-  listContainer: {
-    width: '45%',
-    margin: '1.5%',
-    borderWidth: 1.5,
-    borderColor: Theme.colors.gray,
-    borderRadius: Theme.sizes.radius.medium,
-    justifyContent: 'center',
+  icon: {
+    width: 45,
+    height: 45,
   },
-  imageSubject: {
+  images: {
     width: '100%',
-    height: 180,
-  },
-  fixedFooter: {
-    flexDirection: 'row',
-    position: 'absolute',
-    paddingBottom: 4,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 90,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: Theme.colors.black,
-    zIndex: 1,
+    height: 250,
+    backgroundColor: '#e6e5e5',
   },
   space: {
-    height: 100,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  modalContainerStyle: {
-    alignItems: 'center',
-    backgroundColor: Theme.colors.black,
-    shadowColor: 'white',
-    shadowOffset: {
-      width: 50,
-      height: 50,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: Theme.sizes.radius.primary,
-    elevation: 5,
-    marginHorizontal: 10,
-    marginVertical: 10,
-    padding: 15,
-    borderRadius: Theme.sizes.radius.primary,
-  },
-  iconLoading: {
-    borderRadius: 10,
-    width: 400,
-    height: 130,
+    marginBottom: 15,
   },
 });
 
