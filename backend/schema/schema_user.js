@@ -5,6 +5,7 @@ import { getMessagesType, TYPES, FIELDS } from '../constants/messages.js';
 const NAME = getMessagesType(TYPES.STRING, FIELDS.NAME);
 const EMAIL = getMessagesType(TYPES.STRING, FIELDS.MAIL);
 const PASS = getMessagesType(TYPES.STRING, FIELDS.PASS);
+const GRADE = getMessagesType(TYPES.NUMBER, FIELDS.PASS);
 
 const userSchema = z.object({
   full_name: z
@@ -27,6 +28,10 @@ const userSchema = z.object({
       invalid_type_error: PASS.TYPE,
     })
     .regex(REGEX.USER.PASS, { message: PASS.INVALID }),
+  grade: z.number({
+    required_error: GRADE.REQUIRED,
+    invalid_type_error: GRADE.TYPE,
+  }),
 });
 
 export const validateUser = (input) => {

@@ -10,7 +10,7 @@ export class UserModel {
     let data;
     try {
       [data] = await conn.query(
-        `SELECT BIN_TO_UUID(id) AS id, full_name FROM users WHERE email = ? AND pass = AES_ENCRYPT(?,'${SUPER_KEY}');`,
+        `SELECT BIN_TO_UUID(id) AS id FROM users WHERE email = ? AND pass = AES_ENCRYPT(?,'${SUPER_KEY}');`,
         [email, pass],
       );
       if (data.length === 0) return new DatabaseError(USER_MODEL.FOUND);
@@ -25,7 +25,7 @@ export class UserModel {
     let data;
     try {
       [data] = await conn.query(
-        `SELECT full_name, email FROM users WHERE UUID_TO_BIN(?) = id;`,
+        `SELECT full_name, email,profile_image, grade FROM users WHERE UUID_TO_BIN(?) = id;`,
         [id],
       );
       if (data.length === 0) return new DatabaseError(USER_MODEL.FOUND);
@@ -37,13 +37,13 @@ export class UserModel {
   }
 
   static async create(input) {
-    const { full_name, email, pass } = input;
+    const { full_name, email, pass, grade } = input;
     const uuid = crypto.randomUUID();
     let data;
     try {
       [data] = await conn.query(
-        `INSERT INTO users(id,full_name,email,pass) VALUES(UUID_TO_BIN(?),?,?,AES_ENCRYPT(?,'${SUPER_KEY}'));`,
-        [uuid, full_name, email, pass],
+        `INSERT INTO users(id,full_name,email,pass, grade) VALUES(UUID_TO_BIN(?),?,?,AES_ENCRYPT(?,'${SUPER_KEY}'),?);`,
+        [uuid, full_name, email, pass, grade],
       );
     } catch (err) {
       console.log(err);
