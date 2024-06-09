@@ -4,11 +4,13 @@ import { createMyOwnConnection, SUPER_KEY } from './default.js';
 
 const conn = await createMyOwnConnection();
 export class CourseModel {
-  static async getAll() {
+  static async getAll(input) {
+    const { grade } = input;
     let data;
     try {
       [data] = await conn.query(
-        `SELECT c.id, c.course_name AS name, t.name_type AS type FROM courses c INNER JOIN type_courses t ON c.course_type = t.id ORDER BY c.course_name;`,
+        `SELECT id, course_name as name, image FROM courses WHERE grade = ? ORDER BY course_name;`,
+        [grade],
       );
       if (data.length === 0) return new DatabaseError(COURSE_MODEL.FOUND);
     } catch (err) {
@@ -22,7 +24,7 @@ export class CourseModel {
     let data;
     try {
       [data] = await conn.query(
-        `SELECT c.id, c.course_name AS name, t.name_type AS type FROM courses c INNER JOIN type_courses t ON c.course_type = t.id WHERE c.id = ?;`,
+        `SELECT course_name as name FROM courses WHERE id = ?;`,
         [id],
       );
       if (data.length === 0) return new DatabaseError(COURSE_MODEL.FOUND);
@@ -30,6 +32,7 @@ export class CourseModel {
       console.log(err);
       throw new DatabaseError(COURSE_MODEL.GETTING);
     }
-    return data[0];
+    console.log('Get name', data);
+    return data[0].name;
   }
 }
